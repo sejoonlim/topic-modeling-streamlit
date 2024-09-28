@@ -69,3 +69,7 @@ urllib3==2.2.2
 watchdog==4.0.2
 wordcloud==1.9.3
 wrapt==1.16.0
+openai
+pycryptodome
+python-docx
+PyPDF2

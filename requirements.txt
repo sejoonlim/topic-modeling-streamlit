@@ -73,3 +73,4 @@ openai
 pycryptodome
 python-docx
 PyPDF2
+openpyxl

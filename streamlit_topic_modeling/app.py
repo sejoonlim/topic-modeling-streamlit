@@ -538,21 +538,18 @@ def main():
 
     # 애플리케이션 제목 및 설명
     st.title('Topic Modeling')
-    st.subheader('토픽모델링이란?')
+    st.image('data/photo-1501362343565-93d7318347cf.jpg')
     st.markdown(
-        """
-문서들의 집합에서 특정한 주제를 찾아내기 위한 자연어 처리 기술(NLP)로,  
-특정 주제에 관한 문서에서는 특정 단어가 자주 등장할 것이라는 직관에서 시작된 기술입니다.  
-예를 들어서 특정한 문서의 주제가 음식이라면, 음식의 종류, 음식의 재료 등을 나타내는 단어가 다른 문서에 비해 많이 등장한다고 보고,  
-그 특정한 주제를 찾아내기 위한 접근법입니다.
-"""
+    """
+    토픽모델링은 문서들의 집합에서 특정한 주제를 찾아내기 위한 자연어 처리 기술(NLP)로, 특정 주제에 관한 문서에서는 특정 단어가 자주 등장할 것이라는 직관에서 시작된 기술입니다. 예를 들어서 특정한 문서의 주제가 음식이라면, 음식의 종류, 음식의 재료 등을 나타내는 단어가 다른 문서에 비해 많이 등장한다고 보고, 그 특정한 주제를 찾아내기 위한 접근법입니다.
+    """
     )
     st.markdown(
-        """
-토픽 모델링은 특히 텍스트 마이닝 기법 중에서도 가장 많이 활용되는 기법 중 하나입니다.  
-토픽 모델링은 다시 두 가지의 방법으로 구분되는데, 하나는 잠재 의미 분석(LSA; Latent Semantic Analysis)이고, 다른 하나는 잠재 디리클레 할당(LDA; Latent Dirichlet Allocation)입니다.
-"""
+    """
+    토픽 모델링은 특히 텍스트 마이닝 기법 중에서도 가장 많이 활용되는 기법 중 하나입니다. 토픽 모델링은 다시 두 가지의 방법으로 구분되는데, 하나는 잠재 의미 분석(LSA; Latent Semantic Analysis)이고, 다른 하나는 잠재 디리클레 할당(LDA; Latent Dirichlet Allocation)입니다.
+    """
     )
+
 
     # 추가 세부 정보 확장
     with st.expander('잠재 디리클레 할당'):
@@ -568,15 +565,15 @@ def main():
         )
 
     # 파일 업로더 추가 (단일 파일 업로드로 변경)
-    st.subheader('파일 업로드')
+    st.subheader('토픽모델링 실행하기')
     uploaded_file = st.file_uploader(
-        "docx, pdf, txt 파일을 업로드하세요",
+        "문서(DOCX, PDF, TXT 파일)를 업로드 해주세요.",        
         type=['docx', 'pdf', 'txt'],
         accept_multiple_files=False  # 하나의 파일만 업로드 가능하도록 설정
     )
 
     if not uploaded_file:
-        st.warning('처리할 파일을 업로드해주세요.')
+        # st.warning('처리할 파일을 업로드해주세요.')
         st.stop()
 
     # 파일 이름에서 확장자 제거 및 특수 문자 제거
@@ -624,17 +621,17 @@ def main():
         st.success('모델 학습 완료!')
 
     else:
-        st.info('모델 옵션을 설정하고 "적용" 버튼을 클릭하여 모델을 학습하세요.')
+        st.info('왼쪽 사이드바에서 옵션을 설정하고, "적용" 버튼을 클릭하여 분석을 실행하세요.')
         st.stop()
 
     # 탭 설정
     tabs = st.tabs(["개별 파일 분석", "pyLDAvis 시각화"])
 
     with tabs[0]:
-        st.header('개별 파일 분석')
+        # st.header('개별 파일 분석')
 
         # 단일 파일이므로 루프 제거
-        st.subheader(f'파일: {file_root}{file_ext}')
+        st.subheader(f'{file_root}{file_ext}')
         file_df = texts_df[texts_df['파일명'] == uploaded_file.name]
         docs = generate_docs(file_df, '단락', ngrams=st.session_state.ngrams)
 
@@ -822,7 +819,7 @@ def main():
             metrics_section(current_model, corpus)
 
     with tabs[1]:
-        st.header('pyLDAvis 시각화')
+        # st.header('pyLDAvis 시각화')
         try:
             py_lda_vis_data = pyLDAvis.gensim_models.prepare(
                 current_model,
